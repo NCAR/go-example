@@ -52,17 +52,21 @@ func (i I) asUsay() usay {
 /*Say conforms to the Sayer interface.  i is a pointer receiver on I.*/
 func (i *I) Say() (r string) {
 	//r === "".  all variables has a initialization state. For strings, this is an empty string ""
-
-	r = sc.FormatInt((int64(*i)), 10) + " :" //type safety mandates int64()
-
 	if *i < 0 { //no need for () around most conditionals
 		*i = -*i
 	}
-	for j := I(0); j < *i; j++ {
-		r += i.asUsay().Say()
+
+	r = sc.FormatInt((int64(*i)), 10) + ": " + i.asUsay().Say()
+	//type safety mandates using int64() in an explici conversion
+
+	return //one annoyance is that every function needs an explicit return
+}
+
+/*CountDown prints some interesting factoids*/
+func (i I) CountDown() {
+	for j := I(0); j < i; j++ {
+		fmt.Println(j.Say())
 	}
-	//one annoyance is that every function needs an explicit return
-	return
 }
 
 /*Parse is an exposed pointer receiver.  It takes any single arguement
