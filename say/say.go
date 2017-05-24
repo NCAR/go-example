@@ -42,6 +42,12 @@ func (u usay) Say() string {
 //functionality
 type I int64
 
+/*NewI returns a instatiated I from the passed value i*/
+func NewI(i int64) *I {
+	r := I(i)
+	return &r //safe & legal
+}
+
 /*asUsay returns a usay type from I.  CamelCase is prefered in Go, and tools
 such as golint will nag if you use snake_case.  asUsay can only be directly called
 by things inside the package, the definition is not exported to outside callers*/
